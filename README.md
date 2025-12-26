@@ -1,6 +1,6 @@
 # mb-acoustix
 
-Automates per-speaker EQ and level matching using [Magic Beans Unified Sound Field](https://www.integratedhometheater.com/solutions/magic-beans) target curves for [A1 Evo Acoustix](https://www.integratedhometheater.com/solutions/a1-evo-acoustix) Custom EQ via the Room EQ Wizard (REW) HTTP API.
+Automates per-speaker EQ and level matching using [Magic Beans True Target](https://magicbeansaudio.com/products/true-target) curves for [A1 Evo Acoustix](https://youtu.be/QvL7ZhcV0dc?si=3aUPcb6difRH4-Ge) Custom EQ via the Room EQ Wizard (REW) HTTP API.
 
 ## Overview
 
