@@ -1,14 +1,16 @@
 # mb-acoustix
 
-Automated speaker level-matching and EQ generation for Room EQ Wizard (REW) via its HTTP API.
+Automates per-speaker EQ and level matching using [Magic Beans Unified Sound Field](https://www.integratedhometheater.com/solutions/magic-beans) target curves for [A1 Evo Acoustix](https://www.integratedhometheater.com/solutions/a1-evo-acoustix) Custom EQ via the Room EQ Wizard (REW) HTTP API.
 
 ## Overview
 
-This project automates the tedious process of level-matching multiple speakers in a home theater or multi-channel audio system. It uses REW's API to:
+When using A1 Evo Acoustix with Custom EQ, each speaker channel requires individual EQ filters matched to Magic Beans Unified Sound Field target curves. This script automates the tedious manual process by:
 
-1. Process a reference speaker (Front Left) and calculate its average dB level in the 500Hz-2kHz range
-2. Iteratively adjust other speakers' target levels until their predicted measurements match the reference
-3. Generate EQ filters that produce consistent levels across all channels
+1. Processing each speaker's measurement against its channel-specific Magic Beans target curve
+2. Level-matching all speakers to the Front Left (FL) reference by iteratively adjusting target levels until the 500Hz-2kHz average matches within 0.1 dB tolerance
+3. Generating predicted measurements that can be exported as Custom EQ filters for A1 Evo Acoustix
+
+This ensures a cohesive Unified Sound Field across all channels with consistent levels—critical for proper Atmos/DTS:X immersion.
 
 ## Requirements
 
@@ -18,7 +20,7 @@ This project automates the tedious process of level-matching multiple speakers i
   java -jar REW.jar -api
   ```
 - Existing measurements in REW for each speaker channel
-- Target curve files (house curves) for each speaker in the `magic-beans/` directory
+- **Magic Beans Unified Sound Field target curves** for each speaker in the `magic-beans/` directory (exported from Magic Beans as per-channel house curves)
 
 ## Installation
 
@@ -74,7 +76,7 @@ The script processes speakers in two categories:
 ```
 mb-acoustix/
 ├── rew_automate.py      # Main automation script
-├── magic-beans/         # Target curve files per speaker
+├── magic-beans/         # Magic Beans Unified Sound Field target curves per speaker
 │   ├── Filters for Front Left.txt
 │   ├── Filters for Front Right.txt
 │   ├── Filters for Front Height Left.txt
@@ -179,7 +181,7 @@ flowchart TD
 | `get_measurements()` | Retrieves all measurements from REW |
 | `find_measurement_by_name()` | Locates a measurement UUID by its title |
 | `select_measurement()` | Sets the active measurement in REW |
-| `set_house_curve()` | Applies a target curve file to EQ processing |
+| `set_house_curve()` | Applies a Magic Beans target curve file to EQ processing |
 | `match_response_to_target()` | Generates EQ filters to match the target curve |
 | `generate_predicted_measurement()` | Creates a predicted response based on EQ filters |
 | `get_frequency_response()` | Fetches frequency response data from REW |
